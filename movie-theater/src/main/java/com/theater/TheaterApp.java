@@ -15,39 +15,40 @@ public class TheaterApp {
             System.out.println("\nMenu:");
             System.out.println("1. View Seating Chart");
             System.out.println("2. Reserved a Seat");
-            System.out.println("3.Cancel Reservation");
+            System.out.println("3. Cancel Reservation");
+            System.out.println("4. View Single Seat");
             System.out.println("0.Exit");
+            System.out.print("Choose an option: ");
 
             String choice = scanner.nextLine().trim();
 
             switch (choice) {
                 case "1":
-                    theater.showSeatingChart();
+                    theater.showChart();
                     break;
 
                 case"2":
-                    System.out.print("Enter seat to reserve(ex:A5): ");
-                    String seatToReserve = scanner.nextLine().toUpperCase().trim();
-                    if (isValidInput(seatToReserve)) {
-                        char row = seatToReserve.charAt(0);
-                        int number = Integer.parseInt(seatToReserve.substring(1));
-                        theater.reserveSeat(row, number);
-                    } else {
-                        System.out.println("Invalid seat format. Try again.");
-                    }
+                    System.out.print("Enter row: ");
+                    int r1 = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Enter column: ");
+                    int c1 = Integer.parseInt(scanner.nextLine());
+                    theater.reserve(r1, c1);
                     break;
 
                 case "3":
-                    System.out.print("Enter seat to cancel (ex:A5): ");
-                    String seatToCancel = scanner.nextLine().toUpperCase().trim();
-                    if (isValidInput(seatToCancel)) {
-                        char row = seatToCancel.charAt(0);
-                        int number = Integer.parseInt(seatToCancel.substring(1));
-                        theater.cancelReservation(row, number);
-                    } else {
-                        System.out.println("Invalid seat. Try again.");
-                    }
+                    System.out.print("Enter row: ");
+                    int r2 = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Enter column: ");
+                    int c2 = Integer.parseInt(scanner.nextLine());
+                    theater.cancel(r2, c2);
                     break;
+
+                case "4":
+                    System.out.print("Enter row number: ");
+                    int r3 = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Enter column number: ");
+                    int c3 = Integer.parseInt(scanner.nextLine());
+                    theater.view(r3, c3);
 
                 case "0":
                     running = false;
@@ -60,9 +61,5 @@ public class TheaterApp {
         }
 
         scanner.close();
-    }
-
-    private static boolean isValidInput(String input) {
-        return input.matches("^[A-Z][0-9]{1,2}$");
     }
 }
